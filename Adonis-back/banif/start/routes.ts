@@ -1,37 +1,40 @@
-/*
-|--------------------------------------------------------------------------
-| Routes file
-|--------------------------------------------------------------------------
-|
-| The routes file is used for defining the HTTP routes.
-|
-*/
-
-import { middleware } from '#start/kernel'
-import router from '@adonisjs/core/services/router'
 import { controllers } from '#generated/controllers'
+import router from '@adonisjs/core/services/router'
+import db from '@adonisjs/lucid/services/db'
 
-router.get('/', () => {
-  return { hello: 'world' }
+// mock para login
+router.post('/login', async ({ response }) => {
+  
+  return response.ok({
+    status: 'success',
+    message: 'Login realizado com sucesso (MOCK)',
+    data: {
+      token: 'token_ficticio_para_teste_12345',
+      user: {
+        id: 1,
+        login:  'usuario_teste',
+        role: 'gerente'
+      }
+    }
+  })
 })
 
-router
-  .group(() => {
-    router
-      .group(() => {
-        router.post('signup', [controllers.NewAccount, 'store'])
-        router.post('login', [controllers.AccessTokens, 'store'])
-      })
-      .prefix('auth')
-      .as('auth')
+router.resource('cliente', controllers.Clientes)
 
-    router
-      .group(() => {
-        router.get('profile', [controllers.Profile, 'show'])
-        router.post('logout', [controllers.AccessTokens, 'destroy'])
-      })
-      .prefix('account')
-      .as('profile')
-      .use(middleware.auth())
-  })
-  .prefix('/api/v1')
+router.get('/test-db', async ({ response }) => {
+  try {
+    // Executa uma consulta bruta simples para testar a conexão
+    const resultado = await db.rawQuery('SELECT 1 + 1 as result')
+    return response.ok({ 
+      status: 'Conectado!', 
+      data: resultado[0] 
+    })
+  } catch (error) {
+    return response.internalServerError({ 
+      status: 'Erro de conexão', 
+      message: error.message 
+    })
+  }
+})
+
+
