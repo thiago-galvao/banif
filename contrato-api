@@ -1,0 +1,257 @@
+<Página de LOGIN>
+
+POST '/api/v1/login'
+{
+	"data" {
+		"email": "thiago@hotmail.com",
+		"senha": "123456"
+	}
+}
+
+*Se ok*
+{
+	status: 'success',
+	message: 'Acesso liberado!',
+	data: {
+		token: 'abc_123_token',
+		user: { 
+			id: 1, 
+			nome: 'Thiago' 
+		}
+	}
+}
+
+*Se não ok*
+{
+	status: 'error',
+	message: 'Credenciais inválidas',
+	data: null
+}
+
+X=========X=========X=========X=========X=========X
+
+<Página HOME>
+
+GET '/api/v1/perfil'
+
+*Se ok*
+Se for gerente:
+{
+	status: "success",
+	data {
+		regra: "gerente",
+		email: "gerente@hotmail.com"
+	}
+}
+
+Se for cliente:
+{
+	"status": "success",
+	"data": {
+		"regra": "cliente",
+		"email": "cliente@hotmail.com",
+		"conta": {
+			"agencia": "0001",
+			"numero": "12345-6",
+			"saldo": 1500.50
+		}
+	}
+}
+
+*Se não ok*
+{
+	"status": "error",
+	"message": "Sessão inválida ou expirada. Por favor, realize o login novamente.",
+	"data": null
+}
+
+X=========X=========X=========X=========X=========X
+
+<Página LISTAR CLIENTES>
+
+GET '/api/v1/gerente/clientes'
+
+*Se ok*
+{
+	"status": "success",
+	"data": [ 
+			{
+				"id": 1,
+				"nome": "Cliente 1",
+				"email": "email1@hotmail.com",
+				"conta": {
+					"id": 10,
+					"saldo": 111.12,
+					"agencia": "0001",
+					"numero": "1233-2"
+				}
+			},
+			{
+			"id": 2,
+			"nome": "Cliente 2",
+			"email": "email2@hotmail.com",
+			"conta": {
+				"id": 11,
+				"saldo": 111.15,
+				"agencia": "0002",
+				"numero": "1233-3"
+				}
+			}
+		]
+}
+
+*Se não ok*
+{
+	"status": "error",
+	"message": "Acesso negado.",
+	"data": null
+}
+
+X=========X=========X=========X=========X=========X
+
+<Página CADASTRAR CLIENTE>
+
+POST '/api/v1/gerente/cadastrar-cliente'
+
+*Se ok*
+{	
+	"status": "sucess",
+	"message": "Cliente cadastrado com sucesso",
+	"data" {
+		"nome": "cliente criado teste",
+		"email": "teste_criado@hotmail.com",
+		"senha": "senhateste1234"
+	}
+}
+
+*Se não ok*
+{
+	"status": "error",
+	"message": "Erro. Verifique os dados inseridos."
+}
+
+X=========X=========X=========X=========X=========X
+
+<Página GERAR EXTRATO>
+
+GET '/api/v1/cliente/extrato-transacoes'
+
+*Se ok*
+{
+	"status": "success",
+	"data": {
+		"transacoes": [
+				{
+				"valor": 2345.22,
+				"tipo": "credito",
+				"data": "2026-02-21",
+				"conta": {
+					"usuario": {
+						"nome": "thiago",
+					}
+				}
+			}
+		]
+	}
+}
+
+*Se não ok*
+{
+	"status": "error",
+	"message": "Acesso negado.",
+	"data": null
+}
+
+X=========X=========X=========X=========X=========X
+
+<Página APLICAR POUPANÇA>
+
+GET 'api/v1/cliente/aplicar-poupanca'
+
+*Se ok*
+{
+	"status":"success",
+	"data": {
+		"conta": {
+			"saldo": 324.51,
+			"tipo": "poupanca", // tipo de conta deve ser fixo em "poupanca", é uma tela de exibição de saldo da conta poupança.
+			"agencia": "21342-09", // agencia da conta poupança
+			"numero": "123948", // numero da conta poupanca
+		}
+	}
+}
+
+*Se não ok*
+{
+	"status": "error",
+	"message": "Ocorreu um erro inesperado.",
+	"data": null
+}
+
+
+POST 'api/v1/cliente/aplicar-poupanca'
+
+*Se ok*
+{
+	"status":"success",
+	"message":"Valor aplicado com sucesso!",
+	"data": {
+		"conta": {
+			"saldo":74.50,
+			"tipo": "poupanca" // tipo de conta deve ser fixo em "poupanca", é uma tela de exibição de saldo da conta poupança.
+			"agencia": "21342-09" // agencia da conta poupança
+			"numero": "123948" // numero da conta poupanca
+		}
+	}
+}
+
+*Se não ok*
+{
+	"status": "error",
+	"message": "Ocorreu um erro inesperado.",
+	"data": null
+}
+
+X=========X=========X=========X=========X=========X
+
+<Página TRANSF. PIX>
+
+GET 'api/v1/cliente/transf-pix'
+
+*Se ok*
+{
+	"status": "success",
+	"data": {
+			"email":"testeemail@hotmail.com",
+			"conta": {
+					"saldo":1233.20,
+			}
+	}
+}
+
+*Se não ok*
+{
+	"status": "error",
+	"message": "Ocorreu um erro inesperado.",
+	"data": null
+}
+
+POST 'api/v1/cliente/transf-pix'
+
+*Se ok*
+{
+	"status": "success",
+	"data": {
+			"email": "tste@hotmail.com", // A chave PIX vai ser o e-mail de outro cliente.
+			"valor": 1234.29,
+			"tipo": "pix", // Obrigatoriamente PIX.
+			"descricao": "descricao opcional para registrar a transferência",
+	}
+}
+
+*Se não ok*
+{
+	"status": "error",
+	"message": "Ocorreu um erro inesperado.",
+	"data": null
+}

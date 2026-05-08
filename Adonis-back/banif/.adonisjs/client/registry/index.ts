@@ -6,29 +6,47 @@ import type { ApiDefinition } from './tree.d.ts'
 const placeholder: any = {}
 
 const routes = {
-  'auth.new_account.store': {
-    methods: ["POST"],
-    pattern: '/api/v1/auth/signup',
-    tokens: [{"old":"/api/v1/auth/signup","type":0,"val":"api","end":""},{"old":"/api/v1/auth/signup","type":0,"val":"v1","end":""},{"old":"/api/v1/auth/signup","type":0,"val":"auth","end":""},{"old":"/api/v1/auth/signup","type":0,"val":"signup","end":""}],
-    types: placeholder as Registry['auth.new_account.store']['types'],
-  },
-  'auth.access_tokens.store': {
-    methods: ["POST"],
-    pattern: '/api/v1/auth/login',
-    tokens: [{"old":"/api/v1/auth/login","type":0,"val":"api","end":""},{"old":"/api/v1/auth/login","type":0,"val":"v1","end":""},{"old":"/api/v1/auth/login","type":0,"val":"auth","end":""},{"old":"/api/v1/auth/login","type":0,"val":"login","end":""}],
-    types: placeholder as Registry['auth.access_tokens.store']['types'],
-  },
-  'profile.profile.show': {
+  'cliente.index': {
     methods: ["GET","HEAD"],
-    pattern: '/api/v1/account/profile',
-    tokens: [{"old":"/api/v1/account/profile","type":0,"val":"api","end":""},{"old":"/api/v1/account/profile","type":0,"val":"v1","end":""},{"old":"/api/v1/account/profile","type":0,"val":"account","end":""},{"old":"/api/v1/account/profile","type":0,"val":"profile","end":""}],
-    types: placeholder as Registry['profile.profile.show']['types'],
+    pattern: '/cliente',
+    tokens: [{"old":"/cliente","type":0,"val":"cliente","end":""}],
+    types: placeholder as Registry['cliente.index']['types'],
   },
-  'profile.access_tokens.destroy': {
+  'cliente.create': {
+    methods: ["GET","HEAD"],
+    pattern: '/cliente/create',
+    tokens: [{"old":"/cliente/create","type":0,"val":"cliente","end":""},{"old":"/cliente/create","type":0,"val":"create","end":""}],
+    types: placeholder as Registry['cliente.create']['types'],
+  },
+  'cliente.store': {
     methods: ["POST"],
-    pattern: '/api/v1/account/logout',
-    tokens: [{"old":"/api/v1/account/logout","type":0,"val":"api","end":""},{"old":"/api/v1/account/logout","type":0,"val":"v1","end":""},{"old":"/api/v1/account/logout","type":0,"val":"account","end":""},{"old":"/api/v1/account/logout","type":0,"val":"logout","end":""}],
-    types: placeholder as Registry['profile.access_tokens.destroy']['types'],
+    pattern: '/cliente',
+    tokens: [{"old":"/cliente","type":0,"val":"cliente","end":""}],
+    types: placeholder as Registry['cliente.store']['types'],
+  },
+  'cliente.show': {
+    methods: ["GET","HEAD"],
+    pattern: '/cliente/:id',
+    tokens: [{"old":"/cliente/:id","type":0,"val":"cliente","end":""},{"old":"/cliente/:id","type":1,"val":"id","end":""}],
+    types: placeholder as Registry['cliente.show']['types'],
+  },
+  'cliente.edit': {
+    methods: ["GET","HEAD"],
+    pattern: '/cliente/:id/edit',
+    tokens: [{"old":"/cliente/:id/edit","type":0,"val":"cliente","end":""},{"old":"/cliente/:id/edit","type":1,"val":"id","end":""},{"old":"/cliente/:id/edit","type":0,"val":"edit","end":""}],
+    types: placeholder as Registry['cliente.edit']['types'],
+  },
+  'cliente.update': {
+    methods: ["PUT","PATCH"],
+    pattern: '/cliente/:id',
+    tokens: [{"old":"/cliente/:id","type":0,"val":"cliente","end":""},{"old":"/cliente/:id","type":1,"val":"id","end":""}],
+    types: placeholder as Registry['cliente.update']['types'],
+  },
+  'cliente.destroy': {
+    methods: ["DELETE"],
+    pattern: '/cliente/:id',
+    tokens: [{"old":"/cliente/:id","type":0,"val":"cliente","end":""},{"old":"/cliente/:id","type":1,"val":"id","end":""}],
+    types: placeholder as Registry['cliente.destroy']['types'],
   },
 } as const satisfies Record<string, AdonisEndpoint>
 
