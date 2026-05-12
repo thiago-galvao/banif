@@ -7,6 +7,23 @@
 import { BaseModel, column } from '@adonisjs/lucid/orm'
 import { DateTime } from 'luxon'
 
+export class AplicacoeSchema extends BaseModel {
+  static $columns = ['contaId', 'createdAt', 'id', 'tipo', 'updatedAt', 'valorAplicado'] as const
+  $columns = AplicacoeSchema.$columns
+  @column()
+  declare contaId: number
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare tipo: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+  @column()
+  declare valorAplicado: string
+}
+
 export class AuthAccessTokenSchema extends BaseModel {
   static $columns = ['abilities', 'createdAt', 'expiresAt', 'hash', 'id', 'lastUsedAt', 'name', 'tokenableId', 'type', 'updatedAt'] as const
   $columns = AuthAccessTokenSchema.$columns
@@ -33,27 +50,73 @@ export class AuthAccessTokenSchema extends BaseModel {
 }
 
 export class ClienteSchema extends BaseModel {
+  static $columns = ['cidade', 'cpf', 'createdAt', 'estado', 'id', 'numero', 'rua', 'updatedAt', 'userId'] as const
+  $columns = ClienteSchema.$columns
+  @column()
+  declare cidade: string
+  @column()
+  declare cpf: string
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
+  @column()
+  declare estado: string
   @column({ isPrimary: true })
   declare id: number
-
   @column()
-  declare login: string
-
+  declare numero: string
   @column()
-  declare senha: string
-
-  @column.dateTime({ autoCreate: true })
-  declare createdAt: DateTime
-
+  declare rua: string
   @column.dateTime({ autoCreate: true, autoUpdate: true })
-  declare updatedAt: DateTime
+  declare updatedAt: DateTime | null
+  @column()
+  declare userId: number
+}
+
+export class ContaSchema extends BaseModel {
+  static $columns = ['agencia', 'clienteId', 'createdAt', 'id', 'numero', 'saldo', 'updatedAt'] as const
+  $columns = ContaSchema.$columns
+  @column()
+  declare agencia: string
+  @column()
+  declare clienteId: number
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare numero: string
+  @column()
+  declare saldo: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+}
+
+export class MovimentacoeSchema extends BaseModel {
+  static $columns = ['contaId', 'createdAt', 'descricao', 'id', 'sentido', 'tipo', 'updatedAt', 'valor'] as const
+  $columns = MovimentacoeSchema.$columns
+  @column()
+  declare contaId: number
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
+  @column()
+  declare descricao: string | null
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare sentido: string
+  @column()
+  declare tipo: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+  @column()
+  declare valor: string
 }
 
 export class UserSchema extends BaseModel {
-  static $columns = ['createdAt', 'email', 'fullName', 'id', 'password', 'updatedAt'] as const
+  static $columns = ['createdAt', 'email', 'fullName', 'id', 'password', 'role', 'updatedAt'] as const
   $columns = UserSchema.$columns
   @column.dateTime({ autoCreate: true })
-  declare createdAt: DateTime
+  declare createdAt: DateTime | null
   @column()
   declare email: string
   @column()
@@ -62,6 +125,8 @@ export class UserSchema extends BaseModel {
   declare id: number
   @column({ serializeAs: null })
   declare password: string
+  @column()
+  declare role: string
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
 }

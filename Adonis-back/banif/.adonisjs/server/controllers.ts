@@ -5,7 +5,10 @@
 
 export const controllers = {
   AccessTokens: () => import('#controllers/access_tokens_controller'),
+  Aplicacao: () => import('#controllers/aplicacao_controller'),
   Clientes: () => import('#controllers/clientes_controller'),
-  NewAccount: () => import('#controllers/new_account_controller'),
+  Contas: () => import('#controllers/contas_controller'),
+  Extrato: () => import('#controllers/extrato_controller'),
+  Pix: () => import('#controllers/pix_controller'),
   Profile: () => import('#controllers/profile_controller'),
 }

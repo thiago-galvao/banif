@@ -4,37 +4,45 @@ type ParamValue = string | number | bigint | boolean
 
 export type ScannedRoutes = {
   ALL: {
-    'cliente.index': { paramsTuple?: []; params?: {} }
-    'cliente.create': { paramsTuple?: []; params?: {} }
-    'cliente.store': { paramsTuple?: []; params?: {} }
-    'cliente.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
-    'cliente.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
-    'cliente.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
-    'cliente.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
-  }
-  POST: {
-    'cliente.store': { paramsTuple?: []; params?: {} }
+    'access_tokens.store': { paramsTuple?: []; params?: {} }
+    'access_tokens.destroy': { paramsTuple?: []; params?: {} }
+    'profile.show': { paramsTuple?: []; params?: {} }
+    'clientes.index': { paramsTuple?: []; params?: {} }
+    'clientes.store': { paramsTuple?: []; params?: {} }
+    'contas.ajustar_saldo': { paramsTuple?: []; params?: {} }
+    'pix.show': { paramsTuple?: []; params?: {} }
+    'pix.store': { paramsTuple?: []; params?: {} }
+    'extrato.index': { paramsTuple?: []; params?: {} }
+    'aplicacao.index': { paramsTuple?: []; params?: {} }
+    'aplicacao.aplicar': { paramsTuple?: []; params?: {} }
+    'aplicacao.resgatar': { paramsTuple?: []; params?: {} }
+    'contas.depositar': { paramsTuple?: []; params?: {} }
+    'contas.sacar': { paramsTuple?: []; params?: {} }
   }
   GET: {
-    'cliente.index': { paramsTuple?: []; params?: {} }
-    'cliente.create': { paramsTuple?: []; params?: {} }
-    'cliente.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
-    'cliente.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'profile.show': { paramsTuple?: []; params?: {} }
+    'clientes.index': { paramsTuple?: []; params?: {} }
+    'pix.show': { paramsTuple?: []; params?: {} }
+    'extrato.index': { paramsTuple?: []; params?: {} }
+    'aplicacao.index': { paramsTuple?: []; params?: {} }
   }
   HEAD: {
-    'cliente.index': { paramsTuple?: []; params?: {} }
-    'cliente.create': { paramsTuple?: []; params?: {} }
-    'cliente.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
-    'cliente.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'profile.show': { paramsTuple?: []; params?: {} }
+    'clientes.index': { paramsTuple?: []; params?: {} }
+    'pix.show': { paramsTuple?: []; params?: {} }
+    'extrato.index': { paramsTuple?: []; params?: {} }
+    'aplicacao.index': { paramsTuple?: []; params?: {} }
   }
-  PUT: {
-    'cliente.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
-  }
-  PATCH: {
-    'cliente.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
-  }
-  DELETE: {
-    'cliente.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+  POST: {
+    'access_tokens.store': { paramsTuple?: []; params?: {} }
+    'access_tokens.destroy': { paramsTuple?: []; params?: {} }
+    'clientes.store': { paramsTuple?: []; params?: {} }
+    'contas.ajustar_saldo': { paramsTuple?: []; params?: {} }
+    'pix.store': { paramsTuple?: []; params?: {} }
+    'aplicacao.aplicar': { paramsTuple?: []; params?: {} }
+    'aplicacao.resgatar': { paramsTuple?: []; params?: {} }
+    'contas.depositar': { paramsTuple?: []; params?: {} }
+    'contas.sacar': { paramsTuple?: []; params?: {} }
   }
 }
 declare module '@adonisjs/core/types/http' {

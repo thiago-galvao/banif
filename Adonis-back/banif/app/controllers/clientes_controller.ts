@@ -1,47 +1,61 @@
 import type { HttpContext } from '@adonisjs/core/http'
-import Cliente from '#models/cliente'
+import { cadastrarClienteValidator } from '#validators/cliente'
+import ClienteService from '#services/cliente_service'
+
 export default class ClientesController {
-  /**
-   * Display a list of resource
-   */
-  async index({request}: HttpContext) {
-    return 'hello world'
+  constructor(private clienteService = new ClienteService()) {}
+
+  async index({ response }: HttpContext) {
+    const clientes = await this.clienteService.listar()
+
+    return response.ok({
+      status: 'success',
+      data: clientes.map((c) => ({
+        id: c.id,
+        nome: c.user?.fullName,
+        email: c.user?.email,
+        cpf: c.cpf,
+        conta: c.conta
+          ? {
+              id: c.conta.id,
+              agencia: c.conta.agencia,
+              numero: c.conta.numero,
+              saldo: Number(c.conta.saldo),
+            }
+          : null,
+      })),
+    })
   }
 
-  /**
-   * Display form to create a new record
-   */
-  async create({}: HttpContext) {}
-
-  /**
-   * Handle form submission for the create action
-   */
   async store({ request, response }: HttpContext) {
-    const data = request.only(['login', 'senha'])
-    
-    const post = await Cliente.create(data)
-    
-    return response.created(post)
+    try {
+      const payload = await request.validateUsing(cadastrarClienteValidator)
+      const { user, cliente, conta } = await this.clienteService.cadastrar(payload)
+
+      return response.created({
+        status: 'success',
+        message: 'Cliente cadastrado com sucesso',
+        data: {
+          id: cliente.id,
+          nome: user.fullName,
+          email: user.email,
+          cpf: cliente.cpf,
+          conta: {
+            id: conta.id,
+            agencia: conta.agencia,
+            numero: conta.numero,
+            saldo: Number(conta.saldo),
+          },
+        },
+      })
+    } catch (error: any) {
+      return response.badRequest({
+        status: 'error',
+        message: error?.messages
+          ? 'Erro. Verifique os dados inseridos.'
+          : (error?.message ?? 'Erro ao cadastrar cliente.'),
+        data: error?.messages ?? null,
+      })
+    }
   }
-
-  /**
-   * Show individual record
-   */
-  async show({ response }: HttpContext) {
-  }
-
-  /**
-   * Edit individual record
-   */
-  async edit({ params }: HttpContext) {}
-
-  /**
-   * Handle form submission for the edit action
-   */
-  async update({ params }: HttpContext) {}
-
-  /**
-   * Delete record
-   */
-  async destroy({ params }: HttpContext) {}
 }

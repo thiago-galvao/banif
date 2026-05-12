@@ -24,4 +24,19 @@ export default await Env.create(new URL('../', import.meta.url), {
 
   // Session
   SESSION_DRIVER: Env.schema.enum(['cookie', 'memory', 'database'] as const),
+
+  // Database (MySQL)
+  DB_HOST: Env.schema.string({ format: 'host' }),
+  DB_PORT: Env.schema.number(),
+  DB_USER: Env.schema.string(),
+  DB_PASSWORD: Env.schema.string.optional(),
+  DB_DATABASE: Env.schema.string(),
+
+  // Mail (opcional - sem SMTP, envia para console em dev)
+  MAIL_DRIVER: Env.schema.string.optional(),
+  MAIL_HOST: Env.schema.string.optional(),
+  MAIL_PORT: Env.schema.number.optional(),
+  MAIL_USER: Env.schema.string.optional(),
+  MAIL_PASSWORD: Env.schema.string.optional(),
+  MAIL_FROM: Env.schema.string.optional(),
 })

@@ -6,19 +6,8 @@ const shieldConfig = defineConfig({
    * to learn more.
    */
   csp: {
-    /**
-     * Enable the Content-Security-Policy header.
-     */
     enabled: false,
-
-    /**
-     * Per-resource CSP directives.
-     */
     directives: {},
-
-    /**
-     * Report violations without blocking resources.
-     */
     reportOnly: false,
   },
 
@@ -27,25 +16,9 @@ const shieldConfig = defineConfig({
    * to learn more.
    */
   csrf: {
-    /**
-     * Enable CSRF token verification for state-changing requests.
-     */
     enabled: false,
-
-    /**
-     * Route patterns to exclude from CSRF checks.
-     * Useful for external webhooks or API endpoints.
-     */
     exceptRoutes: [],
-
-    /**
-     * Expose an encrypted XSRF-TOKEN cookie for frontend HTTP clients.
-     */
     enableXsrfCookie: true,
-
-    /**
-     * HTTP methods protected by CSRF validation.
-     */
     methods: ['POST', 'PUT', 'PATCH', 'DELETE'],
   },
 
@@ -54,14 +27,7 @@ const shieldConfig = defineConfig({
    * iframes.
    */
   xFrame: {
-    /**
-     * Enable the X-Frame-Options header.
-     */
     enabled: true,
-
-    /**
-     * Block all framing attempts. Default value is DENY.
-     */
     action: 'DENY',
   },
 
@@ -69,14 +35,7 @@ const shieldConfig = defineConfig({
    * Force browser to always use HTTPS.
    */
   hsts: {
-    /**
-     * Enable the Strict-Transport-Security header.
-     */
     enabled: true,
-
-    /**
-     * HSTS policy duration remembered by browsers.
-     */
     maxAge: '180 days',
   },
 
@@ -85,9 +44,6 @@ const shieldConfig = defineConfig({
    * on the response content-type header.
    */
   contentTypeSniffing: {
-    /**
-     * Enable X-Content-Type-Options: nosniff.
-     */
     enabled: true,
   },
 })

@@ -1,0 +1,91 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #0b1530;
+  --bg-2: #111d3d;
+  --card: #ffffff;
+  --text: #1a2238;
+  --text-soft: #5a6783;
+  --primary: #0a3d91;
+  --primary-2: #0b4eb8;
+  --accent: #e8b40c;
+  --success: #1e9d61;
+  --danger: #c0392b;
+  --border: #d8dceb;
+  --shadow: 0 8px 28px rgba(15, 35, 80, 0.15);
+}
+
+html, body, #root {
+  height: 100%;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+a { color: var(--primary); text-decoration: none; }
+
+button {
+  cursor: pointer;
+  font: inherit;
+  border-radius: 8px;
+  border: none;
+  padding: 10px 18px;
+  background: var(--primary);
+  color: #fff;
+  font-weight: 600;
+  transition: background 0.15s ease, transform 0.05s ease;
+}
+button:hover { background: var(--primary-2); }
+button:active { transform: translateY(1px); }
+button.ghost { background: transparent; color: var(--primary); border: 1px solid var(--primary); }
+button.ghost:hover { background: rgba(10, 61, 145, 0.08); }
+button.danger { background: var(--danger); }
+button.success { background: var(--success); }
+button:disabled { opacity: 0.6; cursor: not-allowed; }
+
+input, select, textarea {
+  font: inherit;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: #fff;
+  color: var(--text);
+  width: 100%;
+}
+input:focus, select:focus, textarea:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 1px;
+}
+
+label {
+  font-size: 13px;
+  color: var(--text-soft);
+  display: block;
+  margin-bottom: 4px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.field { margin-bottom: 14px; }
+
+.card {
+  background: var(--card);
+  border-radius: 14px;
+  padding: 24px;
+  box-shadow: var(--shadow);
+}
+
+.alert { padding: 10px 14px; border-radius: 8px; margin-bottom: 14px; font-size: 14px; }
+.alert.error { background: #fde8e7; color: #7a1a12; border: 1px solid #f5b5b0; }
+.alert.success { background: #e6f7ee; color: #114a2a; border: 1px solid #afe1c4; }
+
+.row { display: flex; gap: 14px; }
+.row > * { flex: 1; }
+
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+@media (max-width: 720px) {
+  .grid-2 { grid-template-columns: 1fr; }
+  .row { flex-direction: column; }
+}

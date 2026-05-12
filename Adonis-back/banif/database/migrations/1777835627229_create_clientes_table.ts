@@ -6,11 +6,22 @@ export default class extends BaseSchema {
   async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
-      table.string('login').notNullable()
-      table.string('senha').notNullable()
-      
-      table.timestamp('created_at')
-      table.timestamp('updated_at')
+      table
+        .integer('user_id')
+        .unsigned()
+        .notNullable()
+        .references('id')
+        .inTable('users')
+        .onDelete('CASCADE')
+
+      table.string('cpf', 14).notNullable().unique()
+      table.string('cidade').notNullable()
+      table.string('estado', 2).notNullable()
+      table.string('rua').notNullable()
+      table.string('numero', 20).notNullable()
+
+      table.timestamp('created_at').nullable()
+      table.timestamp('updated_at').nullable()
     })
   }
 
